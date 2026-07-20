@@ -1,5 +1,17 @@
 # gigpay-shield
 
+## Level 1 Submission Details
+*   **Contract Address (Local Devnet):** `ea69781151dccb871b97e33c2201f7a3c2691b6290584d9ad164f1e4aace5ec8`
+*   **Network:** `undeployed` (Local Devnet - due to Preview/Preprod "Services Unavailable" error on faucet)
+
+### Screenshots
+**1. Successful Compile Output (Circuits Listed)**
+![Compile Output](./compile.png)
+
+**2. Contract Deployed with Address Shown**
+![Deploy Output](./deploy.png)
+
+
 ## Product Idea
 GigPay Shield is a privacy-first escrow application built on the Midnight Network that enables freelancers and clients to transact securely without exposing payment amounts or sensitive identity details on a public ledger. By using Zero-Knowledge (ZK) proofs, GigPay Shield ensures that escrow conditions are met and funds are released appropriately while only publishing the public project name and high-level escrow counts, protecting both parties' financial privacy.
 
