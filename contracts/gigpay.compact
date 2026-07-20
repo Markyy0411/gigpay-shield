@@ -1,0 +1,25 @@
+pragma language_version >= 0.17;
+
+import CompactStandardLibrary;
+
+// Public ledger state - visible on blockchain
+export ledger lastProjectName: Opaque<"string">;
+export ledger activeEscrowCount: Field;
+
+// Circuit to create a shielded gig project
+// projectName is public, but amount and identities are private witnesses.
+export circuit createShieldedGig(
+    projectName: Opaque<"string">,
+    amount: Field, 
+    clientPubKey: Opaque<"string">, 
+    freelancerPubKey: Opaque<"string">
+): [] {
+    // Deliberately using disclose() to make the project name public on the ledger
+    lastProjectName = disclose(projectName);
+    
+    // The amount and identities remain private! (Private witness inputs)
+    // We only publicly increment the number of active escrows.
+
+    
+    activeEscrowCount = activeEscrowCount + 1;
+}

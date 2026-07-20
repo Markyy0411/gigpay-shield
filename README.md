@@ -1,6 +1,9 @@
 # gigpay-shield
 
-A Midnight Network smart contract scaffolded with create-mn-app.
+## Product Idea
+GigPay Shield is a privacy-first escrow application built on the Midnight Network that enables freelancers and clients to transact securely without exposing payment amounts or sensitive identity details on a public ledger. By using Zero-Knowledge (ZK) proofs, GigPay Shield ensures that escrow conditions are met and funds are released appropriately while only publishing the public project name and high-level escrow counts, protecting both parties' financial privacy.
+
+A Midnight Network application created with create-mn-app.
 
 ## Quick start
 
