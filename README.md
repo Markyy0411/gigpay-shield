@@ -5,6 +5,11 @@ GigPay Shield is a privacy-first escrow application built on the Midnight Networ
 
 A Midnight Network application created with create-mn-app.
 
+## Public State vs Private Witness
+In GigPay Shield, we deliberately use Midnight's `disclose()` mechanism and ZK proofs to control exactly what data is public on the ledger and what remains private:
+*   **Public State:** The ledger only stores the total number of escrow jobs created (`escrowCounter`) and generic metadata. This ensures network participants can see the smart contract is being actively used without seeing individual transaction details.
+*   **Private Witness:** The actual payment amounts, the client's identity, the freelancer's identity, and the specific escrow conditions are kept entirely private as ZK Witnesses. The `compact` circuit generates a proof that the escrow was funded and released correctly without ever publishing those sensitive financial details to the blockchain.
+
 ## Quick start
 
 Requirements: Node 22, Docker (with Compose v2), and the Compact compiler at the version pinned in `.compact-version` at the create-mn-app repo root (the version this project was scaffolded against).
