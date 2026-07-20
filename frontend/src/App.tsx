@@ -1,0 +1,162 @@
+import { useState, useEffect } from 'react';
+import { connectLace, getConnectedAPI } from './lib/midnight';
+import { buildProviders } from './lib/providers';
+import { findDeployedContract } from '@midnight-ntwrk/midnight-js-contracts';
+import { CompiledContract } from '@midnight-ntwrk/midnight-js-protocol/compact-js';
+import { Contract } from './managed/gigpay/contract/index.cjs';
+import './index.css';
+
+function App() {
+  const [address, setAddress] = useState<string>('');
+  const [contractAddress, setContractAddress] = useState<string>('e90f198f85c9e1981f7171271b746dc09941c972a3a111d4dc82440c219d83fd');
+  const [projectName, setProjectName] = useState('My Shielded Gig');
+  const [amount, setAmount] = useState('100');
+  const [freelancerPubKey, setFreelancerPubKey] = useState('mn_addr_undeployed1h3ssm5ru2t6eqy4g3she78zlxn96e36ms6pq996aduvmateh9p9sk96u7s');
+  const [status, setStatus] = useState<string>('');
+  const [txId, setTxId] = useState<string>('');
+
+  const handleConnect = async () => {
+    try {
+      setStatus('Connecting to Lace...');
+      const api = await connectLace('undeployed');
+      const addrs = await api.getUnshieldedAddress();
+      setAddress(addrs.unshieldedAddress);
+      setStatus('Connected!');
+    } catch (err: any) {
+      console.error(err);
+      setStatus(`Failed to connect: ${err.message}`);
+    }
+  };
+
+  const handleCreateGig = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      setStatus('Preparing circuit...');
+      setTxId('');
+      
+      const api = getConnectedAPI();
+      if (!api) throw new Error("Wallet not connected");
+
+      const providers = await buildProviders(api);
+
+      const compiledContract = CompiledContract.make('gigpay', Contract).pipe(
+        CompiledContract.withVacantWitnesses,
+        // In browser, ZKConfigProvider handles fetching keys, so we don't need withCompiledFileAssets
+      );
+
+      setStatus('Finding deployed contract...');
+      const deployed = await findDeployedContract(providers, {
+        compiledContract: compiledContract as any,
+        contractAddress,
+        privateStateId: 'gigpayPrivateState',
+        initialPrivateState: {},
+      });
+
+      setStatus('Proving circuit locally & submitting transaction...');
+      
+      // Get the caller's pubkey 
+      const { shieldedCoinPublicKey } = await api.getShieldedAddresses();
+
+      const tx = await deployed.callTx.createShieldedGig(
+        projectName,
+        BigInt(amount),
+        shieldedCoinPublicKey,
+        freelancerPubKey
+      );
+
+      setStatus(`Gig created successfully!`);
+      setTxId(tx.public.txId);
+      
+    } catch (err: any) {
+      console.error(err);
+      setStatus(`Error: ${err.message}`);
+    }
+  };
+
+  return (
+    <div className="container">
+      <header>
+        <h1>GigPay Shield</h1>
+        <p className="subtitle">Privacy-first Escrow on Midnight</p>
+      </header>
+      
+      {!address ? (
+        <div className="card text-center">
+          <h2>Connect your Wallet</h2>
+          <p>Please connect your Lace Midnight wallet to continue.</p>
+          <button className="btn btn-primary" onClick={handleConnect}>Connect Lace</button>
+          <p className="status">{status}</p>
+        </div>
+      ) : (
+        <div className="card">
+          <div className="wallet-info">
+            <span className="badge">Connected</span>
+            <span className="address" title={address}>
+              {address.slice(0, 15)}...{address.slice(-10)}
+            </span>
+          </div>
+
+          <h2>Create Shielded Gig</h2>
+          <form onSubmit={handleCreateGig}>
+            <div className="form-group">
+              <label>Contract Address</label>
+              <input 
+                type="text" 
+                value={contractAddress} 
+                onChange={e => setContractAddress(e.target.value)} 
+                required 
+              />
+            </div>
+            
+            <div className="form-group">
+              <label>Project Name</label>
+              <input 
+                type="text" 
+                value={projectName} 
+                onChange={e => setProjectName(e.target.value)} 
+                required 
+              />
+            </div>
+            
+            <div className="form-group">
+              <label>Amount (tNight)</label>
+              <input 
+                type="number" 
+                value={amount} 
+                onChange={e => setAmount(e.target.value)} 
+                required 
+              />
+            </div>
+            
+            <div className="form-group">
+              <label>Freelancer Public Key</label>
+              <input 
+                type="text" 
+                value={freelancerPubKey} 
+                onChange={e => setFreelancerPubKey(e.target.value)} 
+                required 
+              />
+            </div>
+
+            <button type="submit" className="btn btn-primary w-full">Create Gig (Call Circuit)</button>
+          </form>
+
+          {status && (
+            <div className="alert mt-4">
+              <strong>Status:</strong> {status}
+            </div>
+          )}
+
+          {txId && (
+            <div className="alert alert-success mt-4">
+              <strong>Success!</strong> Transaction ID: <br/>
+              <code>{txId}</code>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default App;
