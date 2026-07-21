@@ -1,8 +1,8 @@
 # gigpay-shield
 
 ## Level 1 Submission Details
-*   **Contract Address (Local Devnet):** `ea69781151dccb871b97e33c2201f7a3c2691b6290584d9ad164f1e4aace5ec8`
-*   **Network:** `undeployed` (Local Devnet - due to Preview/Preprod "Services Unavailable" error on faucet)
+*   **Contract Address (Preprod Testnet):** `e90f198f85c9e1981f7171271b746dc09941c972a3a111d4dc82440c219d83fd`
+*   **Network:** `preprod` (Preprod Network)
 
 ### Screenshots
 **1. Successful Compile Output (Circuits Listed)**
