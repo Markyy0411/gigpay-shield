@@ -1,5 +1,9 @@
 # gigpay-shield
 
+## Level 2 Submission Details
+*   **Live Demo:** [https://gigpay-shield-green.vercel.app](https://gigpay-shield-green.vercel.app)
+*   **Contract Address (Preprod Testnet):** (Syncing...)
+
 ## Level 1 Submission Details
 *   **Contract Address (Preprod Testnet):** `e90f198f85c9e1981f7171271b746dc09941c972a3a111d4dc82440c219d83fd`
 *   **Network:** `preprod` (Preprod Network)
