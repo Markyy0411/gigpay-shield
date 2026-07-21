@@ -8,5 +8,6 @@ describe('gigpay compact contract', () => {
     
     expect(Gigpay).toBeDefined();
     expect(Gigpay.Contract).toBeDefined();
+    // Ensures the managed compiler output was successfully generated
   });
 });
