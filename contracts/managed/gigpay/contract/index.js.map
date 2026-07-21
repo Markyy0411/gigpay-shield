@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "../../../../",
+  "sources": ["contracts/gigpay.compact"],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EAAA;;;;;;;;;;MAUA,AAAA,iBAcC;;;;;cAbG,aAA6B;cAC7B,QAAa;cACb,cAA8B;cAC9B,kBAAkC;;;;;;;;;;;;;;;;;;yCAHlC,aAA6B,+BAC7B,QAAa,+BACb,cAA8B,+BAC9B,kBAAkC;;;;;;;;;mDAHlC,aAA6B;mDAC7B,QAAa;mDACb,cAA8B;mDAC9B,kBAAkC;;;OAUrC;;;;;;;;GACA;EAzBD;;;;;;;;;;;;;;;;;;;;;;;;;;;IAKA;;;;;;;;;yEAAgD;IAChD;;;;;;;;;yEAAuC;;;;;;;GAmBtC;EAfD,AAAA,oBAcC;;uBAbG,aAA6B;uBAC7B,QAAa;uBACb,cAA8B;uBAC9B,kBAAkC;;IAGlC;;;;;;;2HAA2B,aAAW;;yEAAvB;UAMf,KAAiB,qDAAG;;;;;;;;;;;yIAAiB;;IAArC;;;;;;;2HAAA,KAAiB;;yEAAA;;GACpB;;;;;;;;;;;;;;;;IAnBD;qCAAA;;;;;;;;;;;0GAAgD;KAAA;IAChD;qCAAA;;;;;;;;;;;0GAAuC;KAAA;;;;;;;;;;"
+}
