@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { connectLace, getConnectedAPI } from './lib/midnight';
 import { buildProviders } from './lib/providers';
 import { findDeployedContract } from '@midnight-ntwrk/midnight-js-contracts';
 import { CompiledContract } from '@midnight-ntwrk/midnight-js-protocol/compact-js';
-import { Contract } from './managed/gigpay/contract/index.cjs';
+import { Contract } from './managed/gigpay/contract/index.js';
 import './index.css';
 
 function App() {

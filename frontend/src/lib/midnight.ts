@@ -3,7 +3,7 @@ import { type InitialAPI, type ConnectedAPI } from '@midnight-ntwrk/dapp-connect
 declare global {
   interface Window {
     midnight?: {
-      lace?: InitialAPI;
+      [key: string]: InitialAPI;
     };
   }
 }

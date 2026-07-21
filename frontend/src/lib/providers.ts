@@ -16,19 +16,19 @@ export class BrowserZKConfigProvider extends ZKConfigProvider<string> {
   async getZKIR(circuitId: string): Promise<ZKIR> {
     const res = await fetch(`${this.baseUrl}/zkir/${circuitId}.zkir`);
     if (!res.ok) throw new Error(`Failed to fetch ZKIR for ${circuitId}`);
-    return new Uint8Array(await res.arrayBuffer());
+    return new Uint8Array(await res.arrayBuffer()) as unknown as ZKIR;
   }
 
   async getProverKey(circuitId: string): Promise<ProverKey> {
     const res = await fetch(`${this.baseUrl}/keys/${circuitId}.pk`);
     if (!res.ok) throw new Error(`Failed to fetch prover key for ${circuitId}`);
-    return new Uint8Array(await res.arrayBuffer());
+    return new Uint8Array(await res.arrayBuffer()) as unknown as ProverKey;
   }
 
   async getVerifierKey(circuitId: string): Promise<VerifierKey> {
     const res = await fetch(`${this.baseUrl}/keys/${circuitId}.vk`);
     if (!res.ok) throw new Error(`Failed to fetch verifier key for ${circuitId}`);
-    return new Uint8Array(await res.arrayBuffer());
+    return new Uint8Array(await res.arrayBuffer()) as unknown as VerifierKey;
   }
 }
 
@@ -55,7 +55,7 @@ export const buildProviders = async (api: WalletConnectedAPI): Promise<MidnightP
     getEncryptionPublicKey: (): EncPublicKey => {
       throw new Error("getEncryptionPublicKey not synchronously available via DApp connector");
     },
-    balanceTx: async (tx: any, ttl?: Date): Promise<FinalizedTransaction> => {
+    balanceTx: async (tx: any, _ttl?: Date): Promise<FinalizedTransaction> => {
        const txBytes = bytesToHex(new Uint8Array(tx));
        const { tx: balancedTxHex } = await api.balanceUnsealedTransaction(txBytes);
        return hexToBytes(balancedTxHex) as any;
