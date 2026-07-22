@@ -11,12 +11,14 @@ declare global {
 let connectedAPI: ConnectedAPI | null = null;
 
 export const connectLace = async (networkId = 'undeployed'): Promise<ConnectedAPI> => {
-  if (!window.midnight?.lace) {
+  const laceAPI = window.midnight?.mnLace || window.midnight?.lace;
+  
+  if (!laceAPI) {
     throw new Error('Lace wallet is not installed or not available on the window object.');
   }
 
   // Request connection
-  const api = await window.midnight.lace.connect(networkId);
+  const api = await laceAPI.connect(networkId);
   connectedAPI = api;
   return api;
 };
