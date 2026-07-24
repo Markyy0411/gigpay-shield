@@ -18,7 +18,7 @@ function App() {
   const handleConnect = async () => {
     try {
       setStatus('Connecting to Lace...');
-      const api = await connectLace('preprod');
+      const api = await connectLace('preview');
       const addrs = await api.getUnshieldedAddress();
       setAddress(addrs.unshieldedAddress);
       setStatus('Connected!');
