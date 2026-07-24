@@ -69,10 +69,15 @@ export const buildProviders = async (api: WalletConnectedAPI): Promise<MidnightP
   const publicDataProvider = indexerPublicDataProvider(config.indexerUri, config.indexerWsUri);
   // Optional: you can use api.getProvingProvider(zkConfigProvider.asKeyMaterialProvider()) if you want to use Lace's proving server!
   // Let's use the local one for now:
-  const proofProvider = httpClientProofProvider("http://127.0.0.1:6300", zkConfigProvider); 
+  const proofProvider = httpClientProofProvider("https://proof-server.preview.midnight.network", zkConfigProvider); 
 
   return {
-    privateStateProvider: {} as any, // Not used for this contract
+    privateStateProvider: {
+      setContractAddress: () => {},
+      get: async () => null,
+      set: async () => {},
+      clear: async () => {},
+    } as any,
     zkConfigProvider,
     publicDataProvider,
     walletProvider: walletProvider as any,
